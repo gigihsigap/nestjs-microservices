@@ -8,6 +8,16 @@ import { UpdateUserInput } from './dto/update-user.input';
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
+  @Query(() => String)
+  helloUserQuery() {
+    return 'User Service: Hello query!';
+  }
+
+  @Mutation(() => String)
+  helloUserMutation(@Args('input') input: string) {
+    return `User Service: Hello mutation! Input: ${input}`;
+  }
+
   @Query(() => [User])
   users() {
     return this.userService.findAll();

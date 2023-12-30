@@ -13,12 +13,12 @@ export class MediaResolver {
   constructor(private readonly mediaService: MediaService) {}
 
   @Query(() => String)
-  helloQuery() {
+  helloMediaQuery() {
     return 'Media Service: Hello query!';
   }
 
   @Mutation(() => String)
-  helloMutation(@Args('input') input: string) {
+  helloMediaMutation(@Args('input') input: string) {
     return `Media Service: Hello mutation! Input: ${input}`;
   }
 
@@ -49,7 +49,7 @@ export class MediaResolver {
     @CurrentUser() user: User // user data received from Authorization
   ) {
     const data = this.mediaService.findOneByMediaId(id);
-    if (user.id !== data.userId) {
+    if (data && user.id !== data.userId) {
       throw new UnauthorizedException()
     }
     if (data) {
